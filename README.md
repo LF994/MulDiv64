@@ -1,5 +1,9 @@
 # MulDiv64
-Visual C x86-64: MulDiv64 function written on assembler for Intel x86-64
+MulDiv64 function written on assembler for Intel x86-64. It have to be compiled in 64 bits Windows with Microsoft Visual Studio version 2010 and above.
+There are some manifest-related issues in VS 2008, but no problem on older MSVC versions supporting 64 bits.
+
+You have to verify what call sequence is used by Linux or Apple IOS running on Intel-X86-64 CPU. It may or may not be the same. 
+
 It can be your first program in assembler for x86-64. It has very few commands, but it is useful.
 In CPP you have to prototype it as:
 
