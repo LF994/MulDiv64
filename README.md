@@ -2,7 +2,9 @@
 Visual C x86-64: MulDiv64 function written on assembler for Intel x86-64
 It can be your first program in assembler for x86-64. It has very few commands, but it is useful.
 In CPP you have to prototype it as:
+
 extern "C" UINT64 asmMulDiv64(UINT64 a, UINT64 b, UINT64 c);
+
 I hope that you khow how it should look for C source code.
 Function calculates (a * b)/c using intermediate 128 bits  for a*b production. 
 Calculation uses unsighed integers.
