@@ -6,8 +6,8 @@ In CPP you have to prototype it as:
 extern "C" UINT64 asmMulDiv64(UINT64 a, UINT64 b, UINT64 c);
 
 I hope that you khow how it should look for C source code.
-Function calculates (a * b)/c using intermediate 128 bits  for a*b production. 
-Calculation uses unsighed integers.
+
+Function calculates (a * b)/c using intermediate 128 bits result for a*b production. All integers are considered as unsighed.
 This is asm for 64 bits (ML64.exe), so you have to compile C/CPP for 64 bits respectively.
 
 Problem is that no more inline assembler in MSVC x86-64.
@@ -56,7 +56,7 @@ End of test
 
 ```
 
-All numbers for MulDiv are unsigned, but test caller cen receive nagetive values and treat it as huge unsigned numbers:
+All numbers for MulDiv are unsigned, but test caller can receive negative values and treat it as huge unsigned numbers. I hope you know how signed integer negative values presented as "two-complement":
 ```
 D:\My\Proj\MulDiv64>tsmuldiv -1 100 200
 tsmuldiv: (18446744073709551615 * 100) / 200
@@ -64,7 +64,7 @@ In Hex: (FFFFFFFFFFFFFFFF * 64) / C8
 Res=9223372036854775807 (Hex=7FFFFFFFFFFFFFFF)
 End of test
 ```
-If expected result out of 64 bits - error happen:
+If expected result out of 64 bits - error happen (integer division overflow):
 ```
 D:\My\Proj\MulDiv64>tsmuldiv -1 -1 200
 tsmuldiv: (18446744073709551615 * 18446744073709551615) / 200
