@@ -11,11 +11,11 @@ extern "C" UINT64 asmMulDiv64(UINT64 a, UINT64 b, UINT64 c);
 
 I hope that you khow how it should look for C source code.
 
-Function calculates (a * b)/c using intermediate 128 bits result for a*b production. All integers are considered as unsighed.
+Function calculates (a * b)/c using intermediate 128 bits result for a*b production. Integers are unsighed.
 This is asm for 64 bits (ML64.exe), so you have to compile C/CPP for 64 bits respectively.
 
 Problem is that no more inline assembler in MSVC x86-64.
-You mau need this function to perform scale conversions between huge integers representing time in different units.
+You may need this function to perform scale conversions between huge integers representing time in different units and so on.
 Exception can happen if c=0 or when resulting quotient going to be above (2^64-1)
 It can happen when after mul we have [rdx] > [r8], check it and do whatever you want
 or handle exceprion or allow program to crash.
@@ -60,7 +60,7 @@ End of test
 
 ```
 
-All numbers for MulDiv are unsigned, but test caller can receive negative values and treat it as huge unsigned numbers. I hope you know how signed integer negative values presented as "two-complement":
+All numbers for MulDiv are unsigned, but test caller can receive negative values and treat it as huge unsigned numbers. I hope you know how signed integer negative values represented as "two-complement". See test output below:
 ```
 D:\My\Proj\MulDiv64>tsmuldiv -1 100 200
 tsmuldiv: (18446744073709551615 * 100) / 200
@@ -76,3 +76,4 @@ In Hex: (FFFFFFFFFFFFFFFF * FFFFFFFFFFFFFFFF) / C8
 Exception catched: integer division problem
 End of test
 ```
+It is possible to modify code to avoid "integer division overflow", but decision have to be made what "wrong value" to calculate and return. One of the options can be  to return maximal unsigned integer. It can be done very easy. If it is needed to return correct least significant 64 bits of the result - it may need to perform division twice.
