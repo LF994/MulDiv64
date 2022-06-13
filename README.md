@@ -1,20 +1,23 @@
 # MulDiv64
-MulDiv64 function written on assembler for Intel x86-64. It have to be compiled in 64 bits Windows with Microsoft Visual Studio version 2010 and above.
+Function asmMulDiv64(UINT64 a, b, c) is written on assembler for Intel/AMD x86-64 CPU and can be called from C/CPP.
+It calculates (a * b) / c using intermediate 128 bits result for a*b production. 
+All 3 argumenta are considered as 64 bits unsigned integers.
+This is asm for 64 bits (ML64.exe), so you have to compile C/CPP for 64 bits respectively.
+It have to be compiled in 64 bits Windows with Microsoft Visual Studio version 2010 and above.
 There are some manifest-related issues in VS 2008, but no problem on older MSVC versions supporting 64 bits.
 
-You have to verify what call sequence is used by Linux or Apple IOS running on Intel-X86-64 CPU. It may or may not be the same. 
+You have to verify what call sequence is used by Linux or Apple IOS running on Intel/AMD X86-64 CPU.
+It may or may not be the same as Microsoft uses in Windows-x64. 
 
 It can be your first program in assembler for x86-64. It has very few commands, but it is useful.
-In CPP you have to prototype it as:
-
+In MSVC CPP you can prototype it as of:
+```
+typedef unsigned __int64 UINT64;
 extern "C" UINT64 asmMulDiv64(UINT64 a, UINT64 b, UINT64 c);
-
+```
 I hope that you khow how it should look for C source code.
 
-Function calculates (a * b)/c using intermediate 128 bits result for a*b production. Integers are unsighed.
-This is asm for 64 bits (ML64.exe), so you have to compile C/CPP for 64 bits respectively.
-
-Problem is that no more inline assembler in MSVC x86-64.
+Problem is that no more inline assembler in MSVC x86-64 so external asm compiler is used. It is included into any version of MS Visual Studio.
 You may need this function to perform scale conversions between huge integers representing time in different units and so on.
 Exception can happen if c=0 or when resulting quotient going to be above (2^64-1)
 It can happen when after mul we have [rdx] > [r8], check it and do whatever you want
