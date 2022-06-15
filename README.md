@@ -80,3 +80,5 @@ Exception catched: integer division problem
 End of test
 ```
 It is possible to modify code to avoid "integer division overflow", but decision have to be made what "wrong value" to calculate and return. One of the options can be  to return maximal unsigned integer. It can be done very easy. If it is needed to return correct least significant 64 bits of the result - it may need to perform division twice.
+
+Code to do it in 32 bits is much more complex, see MulDiv64x32.cpp. You have to compile it in 32 bits command prompt using mk32.bat. Within CPP it uses inline assembler along with built-in and conditionally compiled main() function. It is possible to convert it to .asm and compile it separately using ML.exe.  
